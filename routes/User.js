@@ -6,13 +6,12 @@ const JWT = require('jsonwebtoken');
 const User = require('../models/User');
 const Todo = require('../models/Todo');
 
-
 const signToken = userID =>{
     return JWT.sign({
         iss : "NoobCoder",
         sub : userID
-    },"NoobCoder",{expiresIn : "1h"});
-}
+    },"AnketN",{expiresIn : "1h"});
+} 
 
 userRouter.post('/register',(req,res)=>{
     const { username,password,role } = req.body;
@@ -64,6 +63,7 @@ userRouter.post('/todo',passport.authenticate('jwt',{session : false}),(req,res)
     })
 });
 
+
 userRouter.get('/todos',passport.authenticate('jwt',{session : false}),(req,res)=>{
     User.findById({_id : req.user._id}).populate('todos').exec((err,document)=>{
         if(err)
@@ -87,8 +87,15 @@ userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(
     res.status(200).json({isAuthenticated : true, user : {username,role}});
 });
 
-
-
+userRouter.get('/api', function(req, res){
+    User.find({})
+        .exec(function(err,User){
+            if(err)
+                console.log("error fetching users");
+            else
+                res.json(User);
+        });
+});
 
 
 module.exports = userRouter;

@@ -12,9 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.20.0",
     "bcrypt": "^3.0.7",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "inspirational-quotes": "^1.0.8",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.7",
     "passport": "^0.4.1",
